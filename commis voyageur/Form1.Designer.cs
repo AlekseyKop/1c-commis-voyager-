@@ -32,13 +32,14 @@
             this.textCity = new System.Windows.Forms.TextBox();
             this.butAddCities = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.butGeneration = new System.Windows.Forms.Button();
+            this.butFullPerebor = new System.Windows.Forms.Button();
+            this.butMurovei = new System.Windows.Forms.Button();
+            this.butUslovie = new System.Windows.Forms.Button();
+            this.butClear = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Cities = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,6 +51,7 @@
             this.butAddOneCity.TabIndex = 0;
             this.butAddOneCity.Text = "Bвести город";
             this.butAddOneCity.UseVisualStyleBackColor = true;
+            this.butAddOneCity.Click += new System.EventHandler(this.butAddOneCity_Click);
             // 
             // textCity
             // 
@@ -66,59 +68,68 @@
             this.butAddCities.TabIndex = 2;
             this.butAddCities.Text = "Добавить города из файла";
             this.butAddCities.UseVisualStyleBackColor = true;
+            this.butAddCities.Click += new System.EventHandler(this.butAddCities_Click);
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Cities});
             this.dataGridView1.Location = new System.Drawing.Point(12, 67);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 100;
             this.dataGridView1.Size = new System.Drawing.Size(341, 297);
             this.dataGridView1.TabIndex = 3;
             // 
-            // button1
+            // butGeneration
             // 
-            this.button1.Location = new System.Drawing.Point(141, 38);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(212, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Заполнить случайными расстояниями";
-            this.button1.UseVisualStyleBackColor = true;
+            this.butGeneration.Location = new System.Drawing.Point(141, 38);
+            this.butGeneration.Name = "butGeneration";
+            this.butGeneration.Size = new System.Drawing.Size(212, 23);
+            this.butGeneration.TabIndex = 4;
+            this.butGeneration.Text = "Заполнить случайными расстояниями";
+            this.butGeneration.UseVisualStyleBackColor = true;
+            this.butGeneration.Click += new System.EventHandler(this.butGeneration_Click);
             // 
-            // button2
+            // butFullPerebor
             // 
-            this.button2.Location = new System.Drawing.Point(359, 111);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(168, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Полный Перебор";
-            this.button2.UseVisualStyleBackColor = true;
+            this.butFullPerebor.Location = new System.Drawing.Point(359, 111);
+            this.butFullPerebor.Name = "butFullPerebor";
+            this.butFullPerebor.Size = new System.Drawing.Size(168, 23);
+            this.butFullPerebor.TabIndex = 5;
+            this.butFullPerebor.Text = "Полный Перебор";
+            this.butFullPerebor.UseVisualStyleBackColor = true;
+            this.butFullPerebor.Click += new System.EventHandler(this.butFullPerebor_Click);
             // 
-            // button3
+            // butMurovei
             // 
-            this.button3.Location = new System.Drawing.Point(359, 82);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(168, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Муравьиный Алгоритм";
-            this.button3.UseVisualStyleBackColor = true;
+            this.butMurovei.Location = new System.Drawing.Point(359, 82);
+            this.butMurovei.Name = "butMurovei";
+            this.butMurovei.Size = new System.Drawing.Size(168, 23);
+            this.butMurovei.TabIndex = 6;
+            this.butMurovei.Text = "Муравьиный Алгоритм";
+            this.butMurovei.UseVisualStyleBackColor = true;
+            this.butMurovei.Click += new System.EventHandler(this.butMurovei_Click);
             // 
-            // button4
+            // butUslovie
             // 
-            this.button4.Location = new System.Drawing.Point(12, 38);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(123, 23);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Условие";
-            this.button4.UseVisualStyleBackColor = true;
+            this.butUslovie.Location = new System.Drawing.Point(12, 38);
+            this.butUslovie.Name = "butUslovie";
+            this.butUslovie.Size = new System.Drawing.Size(123, 23);
+            this.butUslovie.TabIndex = 7;
+            this.butUslovie.Text = "Условие";
+            this.butUslovie.UseVisualStyleBackColor = true;
+            this.butUslovie.Click += new System.EventHandler(this.butUslovie_Click);
             // 
-            // button5
+            // butClear
             // 
-            this.button5.Location = new System.Drawing.Point(359, 38);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(168, 23);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Очистить данные";
-            this.button5.UseVisualStyleBackColor = true;
+            this.butClear.Location = new System.Drawing.Point(359, 38);
+            this.butClear.Name = "butClear";
+            this.butClear.Size = new System.Drawing.Size(168, 23);
+            this.butClear.TabIndex = 8;
+            this.butClear.Text = "Очистить данные";
+            this.butClear.UseVisualStyleBackColor = true;
+            this.butClear.Click += new System.EventHandler(this.butClear_Click);
             // 
             // label1
             // 
@@ -139,6 +150,11 @@
             this.textBox1.Size = new System.Drawing.Size(168, 224);
             this.textBox1.TabIndex = 10;
             // 
+            // Cities
+            // 
+            this.Cities.HeaderText = "";
+            this.Cities.Name = "Cities";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,17 +162,18 @@
             this.ClientSize = new System.Drawing.Size(539, 375);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.butClear);
+            this.Controls.Add(this.butUslovie);
+            this.Controls.Add(this.butMurovei);
+            this.Controls.Add(this.butFullPerebor);
+            this.Controls.Add(this.butGeneration);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.butAddCities);
             this.Controls.Add(this.textCity);
             this.Controls.Add(this.butAddOneCity);
             this.Name = "MainForm";
             this.Text = "Задача коммивояжера(муравьиный алгоритм)";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -169,13 +186,14 @@
         private System.Windows.Forms.TextBox textCity;
         private System.Windows.Forms.Button butAddCities;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button butGeneration;
+        private System.Windows.Forms.Button butFullPerebor;
+        private System.Windows.Forms.Button butMurovei;
+        private System.Windows.Forms.Button butUslovie;
+        private System.Windows.Forms.Button butClear;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cities;
     }
 }
 
