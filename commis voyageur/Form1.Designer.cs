@@ -32,6 +32,7 @@
             this.textCity = new System.Windows.Forms.TextBox();
             this.butAddCities = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Cities = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.butGeneration = new System.Windows.Forms.Button();
             this.butFullPerebor = new System.Windows.Forms.Button();
             this.butMurovei = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.butClear = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.Cities = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,12 +57,12 @@
             // 
             this.textCity.Location = new System.Drawing.Point(141, 12);
             this.textCity.Name = "textCity";
-            this.textCity.Size = new System.Drawing.Size(212, 20);
+            this.textCity.Size = new System.Drawing.Size(327, 20);
             this.textCity.TabIndex = 1;
             // 
             // butAddCities
             // 
-            this.butAddCities.Location = new System.Drawing.Point(359, 10);
+            this.butAddCities.Location = new System.Drawing.Point(484, 12);
             this.butAddCities.Name = "butAddCities";
             this.butAddCities.Size = new System.Drawing.Size(168, 23);
             this.butAddCities.TabIndex = 2;
@@ -78,14 +78,19 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 67);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 100;
-            this.dataGridView1.Size = new System.Drawing.Size(341, 297);
+            this.dataGridView1.Size = new System.Drawing.Size(456, 183);
             this.dataGridView1.TabIndex = 3;
+            // 
+            // Cities
+            // 
+            this.Cities.HeaderText = "";
+            this.Cities.Name = "Cities";
             // 
             // butGeneration
             // 
             this.butGeneration.Location = new System.Drawing.Point(141, 38);
             this.butGeneration.Name = "butGeneration";
-            this.butGeneration.Size = new System.Drawing.Size(212, 23);
+            this.butGeneration.Size = new System.Drawing.Size(327, 23);
             this.butGeneration.TabIndex = 4;
             this.butGeneration.Text = "Заполнить случайными расстояниями";
             this.butGeneration.UseVisualStyleBackColor = true;
@@ -93,7 +98,7 @@
             // 
             // butFullPerebor
             // 
-            this.butFullPerebor.Location = new System.Drawing.Point(359, 111);
+            this.butFullPerebor.Location = new System.Drawing.Point(484, 110);
             this.butFullPerebor.Name = "butFullPerebor";
             this.butFullPerebor.Size = new System.Drawing.Size(168, 23);
             this.butFullPerebor.TabIndex = 5;
@@ -103,7 +108,7 @@
             // 
             // butMurovei
             // 
-            this.butMurovei.Location = new System.Drawing.Point(359, 82);
+            this.butMurovei.Location = new System.Drawing.Point(484, 81);
             this.butMurovei.Name = "butMurovei";
             this.butMurovei.Size = new System.Drawing.Size(168, 23);
             this.butMurovei.TabIndex = 6;
@@ -123,7 +128,7 @@
             // 
             // butClear
             // 
-            this.butClear.Location = new System.Drawing.Point(359, 38);
+            this.butClear.Location = new System.Drawing.Point(484, 41);
             this.butClear.Name = "butClear";
             this.butClear.Size = new System.Drawing.Size(168, 23);
             this.butClear.TabIndex = 8;
@@ -134,7 +139,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(359, 66);
+            this.label1.Location = new System.Drawing.Point(484, 65);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 13);
             this.label1.TabIndex = 9;
@@ -142,24 +147,20 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(359, 140);
-            this.textBox1.MaximumSize = new System.Drawing.Size(180, 200);
-            this.textBox1.MinimumSize = new System.Drawing.Size(130, 224);
+            this.textBox1.Location = new System.Drawing.Point(484, 140);
+            this.textBox1.MaximumSize = new System.Drawing.Size(180, 110);
+            this.textBox1.MinimumSize = new System.Drawing.Size(130, 110);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(168, 224);
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(168, 110);
             this.textBox1.TabIndex = 10;
-            // 
-            // Cities
-            // 
-            this.Cities.HeaderText = "";
-            this.Cities.Name = "Cities";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 375);
+            this.ClientSize = new System.Drawing.Size(664, 262);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.butClear);
@@ -171,6 +172,8 @@
             this.Controls.Add(this.butAddCities);
             this.Controls.Add(this.textCity);
             this.Controls.Add(this.butAddOneCity);
+            this.MaximumSize = new System.Drawing.Size(680, 300);
+            this.MinimumSize = new System.Drawing.Size(580, 300);
             this.Name = "MainForm";
             this.Text = "Задача коммивояжера(муравьиный алгоритм)";
             this.Load += new System.EventHandler(this.MainForm_Load);

@@ -7,3 +7,18 @@ C:\Users\Admin\Documents\Visual Studio 2017\Projects\commis voyageur\commis voya
 C:\Users\Admin\Documents\Visual Studio 2017\Projects\commis voyageur\commis voyageur\obj\Debug\commis voyageur.exe
 C:\Users\Admin\Documents\Visual Studio 2017\Projects\commis voyageur\commis voyageur\obj\Debug\commis voyageur.pdb
 C:\Users\Admin\Documents\Visual Studio 2017\Projects\commis voyageur\commis voyageur\obj\Debug\commis voyageur.csprojResolveAssemblyReference.cache
+E:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.exe
+E:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.pdb
+E:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.csprojResolveAssemblyReference.cache
+E:\commis voyageur\commis voyageur\obj\Debug\commis_voyageur.MainForm.resources
+E:\commis voyageur\commis voyageur\obj\Debug\commis_voyageur.Properties.Resources.resources
+E:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.csproj.GenerateResource.Cache
+I:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.csprojAssemblyReference.cache
+I:\commis voyageur\commis voyageur\obj\Debug\commis_voyageur.MainForm.resources
+I:\commis voyageur\commis voyageur\obj\Debug\commis_voyageur.Properties.Resources.resources
+I:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.csproj.GenerateResource.cache
+I:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.csproj.CoreCompileInputs.cache
+I:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.exe
+I:\commis voyageur\commis voyageur\obj\Debug\commis voyageur.pdb
+I:\commis voyageur\commis voyageur\bin\Debug\commis voyageur.exe
+I:\commis voyageur\commis voyageur\bin\Debug\commis voyageur.pdb

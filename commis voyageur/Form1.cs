@@ -14,6 +14,7 @@ namespace commis_voyageur
     {
         //количество городов
         int n = 0;
+        Alghoritms mc = new Alghoritms();
         public MainForm()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace commis_voyageur
             butFullPerebor.Enabled = state;
             butGeneration.Enabled = state;
         }
-        // добавление городов по одному в ручную
+        // добавление городов по одному вручную
         private void butAddOneCity_Click(object sender, EventArgs e)
         {
             void AddOneCity(int i)
@@ -52,9 +53,13 @@ namespace commis_voyageur
                 "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             if (n == 2)
             {
-                SetInterfaceState(true);
+                butGeneration.Enabled = true;
             }
-
+            if (n==4)
+            {
+                butAddOneCity.Enabled = false;
+                butAddCities.Enabled = false;
+            }
         }
         // условие
         private void butUslovie_Click(object sender, EventArgs e)
@@ -75,7 +80,7 @@ namespace commis_voyageur
             {
                 str = f.ReadToEnd().Split(new Char[] { ' ', '\n', '\r' });
                 int pos = 0;
-                for (int i = 0; (i <= dataGridView1.RowCount-1)&&(str.Length!=pos); i++)
+                for (int i = 0; (i <= dataGridView1.RowCount - 1) && (str.Length != pos); i++)
                 {
                     while (str[pos] == "")
                     {
@@ -88,9 +93,14 @@ namespace commis_voyageur
                     n++;
                     pos++;
                 }
-               f.Close();
+                f.Close();
             }
-            SetInterfaceState(true);
+            butGeneration.Enabled = true;
+            if (n==4)
+            {
+                butAddOneCity.Enabled = false;
+                butAddCities.Enabled = false;
+            }
         }
         // генерация путей (односторонних)
         private void butGeneration_Click(object sender, EventArgs e)
@@ -108,6 +118,8 @@ namespace commis_voyageur
                         dataGridView1.Rows[i].Cells[j].Value = Convert.ToString(rand.Next(10, 250));
                     }
                 };
+            butMurovei.Enabled = true;
+            butFullPerebor.Enabled = true;
 
         }
         //очистка формы
@@ -118,17 +130,52 @@ namespace commis_voyageur
             dataGridView1.ColumnCount = 1;
             dataGridView1.RowCount = 1;
             n = 0;
+            textBox1.Clear();
             SetInterfaceState(false);
+            butAddOneCity.Enabled = true;
+            butAddCities.Enabled = true;
         }
         //реализация через "муравьиный алгоритм"
         private void butMurovei_Click(object sender, EventArgs e)
         {
-            //Alghoritms.MuroveiRun();
+            List<int> X = new List<int>();
+            string cities = "";
+            int min = 0;
+            int[,] TR = new int[dataGridView1.ColumnCount - 1, dataGridView1.ColumnCount - 1];
+            for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
+                for (int j = 0; j < dataGridView1.ColumnCount - 1; j++)
+                    TR[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
+            DateTime FirstTime = DateTime.Now;
+            X = mc.GetMinPutMuravii(ref TR, ref min);
+            DateTime SecondTime = DateTime.Now;
+            string time = Convert.ToString(SecondTime.Subtract(FirstTime).TotalSeconds);
+            for (int i = 0; i < n; i++)
+            {
+                cities = cities + dataGridView1.Rows[X[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
+            }
+
+            textBox1.Text += Environment.NewLine + "Муравьиный алгоритм" + Environment.NewLine + "Минимальное Расстояние:" + Environment.NewLine + Convert.ToString(min) + Environment.NewLine + cities + Environment.NewLine + "Время работы:" + Environment.NewLine + time + Environment.NewLine;
         }
         //реализация через полный перебор
         private void butFullPerebor_Click(object sender, EventArgs e)
         {
-            //Alghoritms.FullPerebor();
+            List<int> X = new List<int>();
+            string cities = "";
+            int min = 0;
+            int[,] TR = new int[dataGridView1.ColumnCount - 1, dataGridView1.ColumnCount - 1];
+            for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
+                for (int j = 0; j < dataGridView1.ColumnCount - 1; j++)
+                    TR[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
+            DateTime FirstTime = DateTime.Now;
+            X = mc.GetMinPut(TR, ref min);
+            DateTime SecondTime = DateTime.Now;
+            string time = Convert.ToString(SecondTime.Subtract(FirstTime).TotalSeconds);
+            for (int i = 0; i < n; i++)
+            {
+                cities = cities + dataGridView1.Rows[X[i]-1].HeaderCell.Value.ToString()+ Environment.NewLine;
+            }
+
+            textBox1.Text += Environment.NewLine + "Полный перебор" + Environment.NewLine + "Минимальное Расстояние:" + Environment.NewLine + Convert.ToString(min) + Environment.NewLine + cities + Environment.NewLine + "Время работы:" + Environment.NewLine + time + Environment.NewLine + "--------------------";
         }
         //при загрузке формы
         private void MainForm_Load(object sender, EventArgs e)
@@ -136,6 +183,7 @@ namespace commis_voyageur
             SetInterfaceState(false);
             dataGridView1.ColumnCount = 1;
             dataGridView1.RowCount = 1;
+           
         }
     }
 }
