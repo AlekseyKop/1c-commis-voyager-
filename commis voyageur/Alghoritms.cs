@@ -183,15 +183,15 @@ namespace commis_voyageur
 
 
 
-        public List<int> GetMinPutMuravii(ref int[,] D, ref int min)
+        public List<int> GetMinPutMuravii(ref int[,] D, ref int min, int alfa, int beta, int tmax, double p_isp,double startph)
         {
             Random rand = new Random();
-            int alfa, beta, n, k, i, j, t, p, tmax;
+            int  n, k, i, j, t, p;
             List<int> X = new List<int>();
             List<int> M = new List<int>();
             List<int> L = new List<int>();
             List<int> Result = new List<int>();
-            double qq, p_isp;
+            double qq;
             n = D.GetLength(1);
             for (i = X.Count; i < n; i++) X.Add(0);
             for (i = 0; i <= n - 1; i++) X[i] = i + 1;
@@ -205,14 +205,10 @@ namespace commis_voyageur
                 for (j = 0; j <= n - 1; j++)
                     if (D[i, j] != 0) NU[i, j] = (1 / Convert.ToDouble(D[i, j]));
                     else NU[i, j] = 0;
-            tmax = n * 100;
-            alfa = 2;
-            beta = 3;
-            p_isp = 0.3;
             double[,] r = new double[n, n];
             for (i = 0; i < n; i++)
                 for (j = 0; j < n; j++)
-                    r[i, j] = 10.0;
+                    r[i, j] = startph;
             for (t = 1; t < tmax + 1; t++)
             {
                 dropAnts(ref M, ref n);

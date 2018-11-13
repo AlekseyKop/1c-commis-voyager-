@@ -55,11 +55,6 @@ namespace commis_voyageur
             {
                 butGeneration.Enabled = true;
             }
-            if (n==4)
-            {
-                butAddOneCity.Enabled = false;
-                butAddCities.Enabled = false;
-            }
         }
         // условие
         private void butUslovie_Click(object sender, EventArgs e)
@@ -96,11 +91,7 @@ namespace commis_voyageur
                 f.Close();
             }
             butGeneration.Enabled = true;
-            if (n==4)
-            {
-                butAddOneCity.Enabled = false;
-                butAddCities.Enabled = false;
-            }
+            butAddCities.Enabled = false;
         }
         // генерация путей (односторонних)
         private void butGeneration_Click(object sender, EventArgs e)
@@ -129,32 +120,22 @@ namespace commis_voyageur
             dataGridView1.Columns.Clear();
             dataGridView1.ColumnCount = 1;
             dataGridView1.RowCount = 1;
+            dataGridView2.Rows.Clear();
+            dataGridView2.Columns.Clear();
+            dataGridView2.ColumnCount = 1;
+            dataGridView2.RowCount = 1;
             n = 0;
             textBox1.Clear();
-            SetInterfaceState(false);
-            butAddOneCity.Enabled = true;
             butAddCities.Enabled = true;
+            SetInterfaceState(false);
         }
         //реализация через "муравьиный алгоритм"
         private void butMurovei_Click(object sender, EventArgs e)
         {
-            List<int> X = new List<int>();
-            string cities = "";
-            int min = 0;
-            int[,] TR = new int[dataGridView1.ColumnCount - 1, dataGridView1.ColumnCount - 1];
-            for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
-                for (int j = 0; j < dataGridView1.ColumnCount - 1; j++)
-                    TR[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
-            DateTime FirstTime = DateTime.Now;
-            X = mc.GetMinPutMuravii(ref TR, ref min);
-            DateTime SecondTime = DateTime.Now;
-            string time = Convert.ToString(SecondTime.Subtract(FirstTime).TotalSeconds);
-            for (int i = 0; i < n; i++)
-            {
-                cities = cities + dataGridView1.Rows[X[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
-            }
+            butMurovei.Enabled = false;
+            panel1.Visible = true;
+            butFullPerebor.Enabled = false;
 
-            textBox1.Text += Environment.NewLine + "Муравьиный алгоритм" + Environment.NewLine + "Минимальное Расстояние:" + Environment.NewLine + Convert.ToString(min) + Environment.NewLine + cities + Environment.NewLine + "Время работы:" + Environment.NewLine + time + Environment.NewLine;
         }
         //реализация через полный перебор
         private void butFullPerebor_Click(object sender, EventArgs e)
@@ -172,10 +153,12 @@ namespace commis_voyageur
             string time = Convert.ToString(SecondTime.Subtract(FirstTime).TotalSeconds);
             for (int i = 0; i < n; i++)
             {
-                cities = cities + dataGridView1.Rows[X[i]-1].HeaderCell.Value.ToString()+ Environment.NewLine;
+                cities = cities + dataGridView1.Rows[X[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
             }
 
-            textBox1.Text += Environment.NewLine + "Полный перебор" + Environment.NewLine + "Минимальное Расстояние:" + Environment.NewLine + Convert.ToString(min) + Environment.NewLine + cities + Environment.NewLine + "Время работы:" + Environment.NewLine + time + Environment.NewLine + "--------------------";
+            textBox1.Text += Environment.NewLine + "Полный перебор:" + Environment.NewLine + "Минимальный Путь:" + Environment.NewLine + cities + "--------------------";
+            dataGridView2.Rows[0].Cells[0].Value = time;
+            dataGridView2.Rows[1].Cells[0].Value = Convert.ToString(min);
         }
         //при загрузке формы
         private void MainForm_Load(object sender, EventArgs e)
@@ -183,7 +166,81 @@ namespace commis_voyageur
             SetInterfaceState(false);
             dataGridView1.ColumnCount = 1;
             dataGridView1.RowCount = 1;
-           
+            dataGridView2.ColumnCount = 1;
+            dataGridView2.RowCount = 1;
+            panel1.Visible = false;
+            dataGridView2.Rows.Add();
+            dataGridView2.Columns.Add("newColumnName", "");
+            dataGridView2.Rows[0].HeaderCell.Value = "t";
+            dataGridView2.Rows[1].HeaderCell.Value = "S";
+            dataGridView2.Columns[0].HeaderCell.Value = "Полный перебор";
+            dataGridView2.Columns[1].HeaderCell.Value = "Муравьиный алгоритм";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int alfa, beta, tmax;
+            double startph, p_isp;
+            while (!(int.TryParse(textBox2.Text, out alfa)))
+            {
+                MessageBox.Show("Введено недопустимое значение!",
+                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox2.Text = "";
+                return;
+
+            }
+            while (!(int.TryParse(textBox3.Text, out beta)))
+            {
+                MessageBox.Show("Введено недопустимое значение!",
+                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox3.Text = "";
+                return;
+            }
+            while ((!(int.TryParse(textBox4.Text, out tmax))) && (tmax > 0) && (tmax < 100000))
+            {
+                MessageBox.Show("Введено недопустимое значение!",
+               "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox4.Text = "";
+                return;
+            }
+            while ((!(double.TryParse(textBox5.Text, out p_isp))) && (p_isp > 0) && (p_isp <= 1))
+            {
+                MessageBox.Show("Введено недопустимое значение!",
+               "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox5.Text = "";
+                return;
+            }
+            while (!(double.TryParse(textBox6.Text, out startph)) && (startph != 0))
+            {
+                MessageBox.Show("Введено недопустимое значение!",
+               "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox6.Text = "";
+                return;
+            }
+            List<int> X = new List<int>();
+            string cities = "";
+            int min = 0;
+            int[,] TR = new int[dataGridView1.ColumnCount - 1, dataGridView1.ColumnCount - 1];
+            for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
+                for (int j = 0; j < dataGridView1.ColumnCount - 1; j++)
+                    TR[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
+            DateTime FirstTime = DateTime.Now;
+            X = mc.GetMinPutMuravii(ref TR, ref min, alfa, beta, tmax, p_isp, startph);
+            DateTime SecondTime = DateTime.Now;
+            string time = Convert.ToString(SecondTime.Subtract(FirstTime).TotalSeconds);
+            for (int i = 0; i < n; i++)
+            {
+                cities = cities + dataGridView1.Rows[X[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
+            }
+
+            textBox1.Text += Environment.NewLine + "Муравьиный алгоритм:" + Environment.NewLine + "Минимальный Путь:" + Environment.NewLine + cities + "--------------------";
+            panel1.Visible = false;
+            butMurovei.Enabled = true;
+            butFullPerebor.Enabled = true;
+            dataGridView2.Rows[0].Cells[1].Value = time;
+            dataGridView2.Rows[1].Cells[1].Value = Convert.ToString(min);
+
+
         }
     }
 }
