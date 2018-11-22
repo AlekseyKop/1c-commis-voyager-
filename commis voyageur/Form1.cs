@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace commis_voyageur
@@ -20,13 +21,7 @@ namespace commis_voyageur
             InitializeComponent();
         }
 
-        // блокировка/разблокировка кнопок
-        private void SetInterfaceState(bool state)
-        {
-            butMurovei.Enabled = state;
-            butFullPerebor.Enabled = state;
-            butGeneration.Enabled = state;
-        }
+
         // добавление городов по одному вручную
         private void butAddOneCity_Click(object sender, EventArgs e)
         {
@@ -109,8 +104,7 @@ namespace commis_voyageur
                         dataGridView1.Rows[i].Cells[j].Value = Convert.ToString(rand.Next(10, 250));
                     }
                 };
-            butMurovei.Enabled = true;
-            butFullPerebor.Enabled = true;
+            panel1.Visible = true;
 
         }
         //очистка формы
@@ -120,50 +114,15 @@ namespace commis_voyageur
             dataGridView1.Columns.Clear();
             dataGridView1.ColumnCount = 1;
             dataGridView1.RowCount = 1;
-            dataGridView2.Rows.Clear();
-            dataGridView2.Columns.Clear();
-            dataGridView2.ColumnCount = 1;
-            dataGridView2.RowCount = 1;
             n = 0;
             textBox1.Clear();
             butAddCities.Enabled = true;
-            SetInterfaceState(false);
+            panel1.Visible = false;
         }
-        //реализация через "муравьиный алгоритм"
-        private void butMurovei_Click(object sender, EventArgs e)
-        {
-            butMurovei.Enabled = false;
-            panel1.Visible = true;
-            butFullPerebor.Enabled = false;
 
-        }
-        //реализация через полный перебор
-        private void butFullPerebor_Click(object sender, EventArgs e)
-        {
-            List<int> X = new List<int>();
-            string cities = "";
-            int min = 0;
-            int[,] TR = new int[dataGridView1.ColumnCount - 1, dataGridView1.ColumnCount - 1];
-            for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
-                for (int j = 0; j < dataGridView1.ColumnCount - 1; j++)
-                    TR[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
-            DateTime FirstTime = DateTime.Now;
-            X = mc.GetMinPut(TR, ref min);
-            DateTime SecondTime = DateTime.Now;
-            string time = Convert.ToString(SecondTime.Subtract(FirstTime).TotalSeconds);
-            for (int i = 0; i < n; i++)
-            {
-                cities = cities + dataGridView1.Rows[X[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
-            }
-
-            textBox1.Text += Environment.NewLine + "Полный перебор:" + Environment.NewLine + "Минимальный Путь:" + Environment.NewLine + cities + "--------------------";
-            dataGridView2.Rows[0].Cells[0].Value = time;
-            dataGridView2.Rows[1].Cells[0].Value = Convert.ToString(min);
-        }
         //при загрузке формы
         private void MainForm_Load(object sender, EventArgs e)
         {
-            SetInterfaceState(false);
             dataGridView1.ColumnCount = 1;
             dataGridView1.RowCount = 1;
             dataGridView2.ColumnCount = 1;
@@ -177,9 +136,9 @@ namespace commis_voyageur
             dataGridView2.Columns[1].HeaderCell.Value = "Муравьиный алгоритм";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void CallFunAntAlg()
         {
-            int alfa, beta, tmax;
+            int alfa, beta;
             double startph, p_isp;
             while (!(int.TryParse(textBox2.Text, out alfa)))
             {
@@ -196,14 +155,7 @@ namespace commis_voyageur
                 textBox3.Text = "";
                 return;
             }
-            while ((!(int.TryParse(textBox4.Text, out tmax))) && (tmax > 0) && (tmax < 100000))
-            {
-                MessageBox.Show("Введено недопустимое значение!",
-               "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                textBox4.Text = "";
-                return;
-            }
-            while ((!(double.TryParse(textBox5.Text, out p_isp))) && (p_isp > 0) && (p_isp <= 1))
+            while ((!double.TryParse(textBox5.Text, out p_isp)) || (!(p_isp >= 0) || !(p_isp <= 1)))
             {
                 MessageBox.Show("Введено недопустимое значение!",
                "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -218,27 +170,54 @@ namespace commis_voyageur
                 return;
             }
             List<int> X = new List<int>();
-            string cities = "";
-            int min = 0;
+            string cities1 = "";
+            int min1 = 0;
             int[,] TR = new int[dataGridView1.ColumnCount - 1, dataGridView1.ColumnCount - 1];
             for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
                 for (int j = 0; j < dataGridView1.ColumnCount - 1; j++)
                     TR[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
-            DateTime FirstTime = DateTime.Now;
-            X = mc.GetMinPutMuravii(ref TR, ref min, alfa, beta, tmax, p_isp, startph);
-            DateTime SecondTime = DateTime.Now;
-            string time = Convert.ToString(SecondTime.Subtract(FirstTime).TotalSeconds);
+            DateTime FirstTime1 = DateTime.Now;
+            X = mc.FindWayAntAlgorithm(ref TR, ref min1, alfa, beta, p_isp, startph);
+            DateTime SecondTime1 = DateTime.Now;
             for (int i = 0; i < n; i++)
             {
-                cities = cities + dataGridView1.Rows[X[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
+                cities1 = cities1 + dataGridView1.Rows[X[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
             }
+            textBox1.Invoke(new Action(() => { textBox1.Text += Environment.NewLine + "Муравьиный алгоритм:" + Environment.NewLine + "Минимальный Путь:" + Environment.NewLine + cities1 + "--------------------"; }));
+            string time1 = Convert.ToString(SecondTime1.Subtract(FirstTime1).TotalSeconds);
+            dataGridView2.Rows[0].Cells[1].Value = time1;
+            dataGridView2.Rows[1].Cells[1].Value = Convert.ToString(min1);
+        }
 
-            textBox1.Text += Environment.NewLine + "Муравьиный алгоритм:" + Environment.NewLine + "Минимальный Путь:" + Environment.NewLine + cities + "--------------------";
-            panel1.Visible = false;
-            butMurovei.Enabled = true;
-            butFullPerebor.Enabled = true;
-            dataGridView2.Rows[0].Cells[1].Value = time;
-            dataGridView2.Rows[1].Cells[1].Value = Convert.ToString(min);
+        private void CallFunEs()
+        {
+            List<int> Es = new List<int>();
+            string cities2 = "";
+            int min2 = 0;
+            int[,] TR = new int[dataGridView1.ColumnCount - 1, dataGridView1.ColumnCount - 1];
+            for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
+                for (int j = 0; j < dataGridView1.ColumnCount - 1; j++)
+                    TR[i, j] = int.Parse(dataGridView1.Rows[i].Cells[j].Value.ToString());
+            DateTime FirstTime2 = DateTime.Now;
+            Es = mc.FindMinWayExhaustiveSearch(TR, ref min2);
+            DateTime SecondTime2 = DateTime.Now;
+            for (int i = 0; i < n; i++)
+            {
+                cities2 = cities2 + dataGridView1.Rows[Es[i] - 1].HeaderCell.Value.ToString() + Environment.NewLine;
+            }
+            textBox1.Invoke(new Action(() => { textBox1.Text += Environment.NewLine + "Полный перебор:" + Environment.NewLine + "Минимальный Путь:" + Environment.NewLine + cities2 + "--------------------"; }));
+            string time2 = Convert.ToString(SecondTime2.Subtract(FirstTime2).TotalSeconds);
+            dataGridView2.Rows[0].Cells[0].Value = time2;
+            dataGridView2.Rows[1].Cells[0].Value = Convert.ToString(min2);
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Thread thread1 = new Thread(CallFunAntAlg);
+            Thread thread2 = new Thread(CallFunEs);
+            thread1.Start();
+            thread2.Start();
 
 
         }

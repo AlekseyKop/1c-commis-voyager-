@@ -34,13 +34,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Cities = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.butGeneration = new System.Windows.Forms.Button();
-            this.butFullPerebor = new System.Windows.Forms.Button();
-            this.butMurovei = new System.Windows.Forms.Button();
             this.butUslovie = new System.Windows.Forms.Button();
             this.butClear = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.butRunMura = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,8 +50,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -82,9 +79,9 @@
             // butAddCities
             // 
             this.butAddCities.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAddCities.Location = new System.Drawing.Point(903, 9);
+            this.butAddCities.Location = new System.Drawing.Point(882, 9);
             this.butAddCities.Name = "butAddCities";
-            this.butAddCities.Size = new System.Drawing.Size(224, 23);
+            this.butAddCities.Size = new System.Drawing.Size(245, 23);
             this.butAddCities.TabIndex = 2;
             this.butAddCities.Text = "Добавить города из файла";
             this.butAddCities.UseVisualStyleBackColor = true;
@@ -121,28 +118,6 @@
             this.butGeneration.UseVisualStyleBackColor = true;
             this.butGeneration.Click += new System.EventHandler(this.butGeneration_Click);
             // 
-            // butFullPerebor
-            // 
-            this.butFullPerebor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butFullPerebor.Location = new System.Drawing.Point(903, 111);
-            this.butFullPerebor.Name = "butFullPerebor";
-            this.butFullPerebor.Size = new System.Drawing.Size(224, 23);
-            this.butFullPerebor.TabIndex = 5;
-            this.butFullPerebor.Text = "Полный Перебор";
-            this.butFullPerebor.UseVisualStyleBackColor = true;
-            this.butFullPerebor.Click += new System.EventHandler(this.butFullPerebor_Click);
-            // 
-            // butMurovei
-            // 
-            this.butMurovei.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butMurovei.Location = new System.Drawing.Point(903, 82);
-            this.butMurovei.Name = "butMurovei";
-            this.butMurovei.Size = new System.Drawing.Size(224, 23);
-            this.butMurovei.TabIndex = 6;
-            this.butMurovei.Text = "Муравьиный Алгоритм";
-            this.butMurovei.UseVisualStyleBackColor = true;
-            this.butMurovei.Click += new System.EventHandler(this.butMurovei_Click);
-            // 
             // butUslovie
             // 
             this.butUslovie.Location = new System.Drawing.Point(12, 38);
@@ -156,32 +131,22 @@
             // butClear
             // 
             this.butClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butClear.Location = new System.Drawing.Point(903, 38);
+            this.butClear.Location = new System.Drawing.Point(882, 38);
             this.butClear.Name = "butClear";
-            this.butClear.Size = new System.Drawing.Size(224, 23);
+            this.butClear.Size = new System.Drawing.Size(245, 23);
             this.butClear.TabIndex = 8;
             this.butClear.Text = "Очистить данные";
             this.butClear.UseVisualStyleBackColor = true;
             this.butClear.Click += new System.EventHandler(this.butClear_Click);
             // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(900, 67);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 13);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Способ решения:";
-            // 
             // textBox1
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(903, 141);
+            this.textBox1.Location = new System.Drawing.Point(882, 67);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(224, 264);
+            this.textBox1.Size = new System.Drawing.Size(245, 338);
             this.textBox1.TabIndex = 10;
             // 
             // panel1
@@ -202,6 +167,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(247, 161);
             this.panel1.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(24, 110);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(104, 13);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "Нач.ур.феромона =";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox6.Location = new System.Drawing.Point(126, 107);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(112, 20);
+            this.textBox6.TabIndex = 9;
+            this.textBox6.Text = "10,0";
             // 
             // butRunMura
             // 
@@ -284,9 +268,9 @@
             // textBox2
             // 
             this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(129, 6);
+            this.textBox2.Location = new System.Drawing.Point(126, 6);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(109, 20);
+            this.textBox2.Size = new System.Drawing.Size(112, 20);
             this.textBox2.TabIndex = 0;
             this.textBox2.Text = "2";
             // 
@@ -303,25 +287,6 @@
             this.dataGridView2.RowHeadersWidth = 60;
             this.dataGridView2.Size = new System.Drawing.Size(247, 139);
             this.dataGridView2.TabIndex = 14;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 110);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 13);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Нач.ур.феромона =";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(126, 107);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(112, 20);
-            this.textBox6.TabIndex = 9;
-            this.textBox6.Text = "10,0";
             // 
             // Column1
             // 
@@ -343,11 +308,8 @@
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.butClear);
             this.Controls.Add(this.butUslovie);
-            this.Controls.Add(this.butMurovei);
-            this.Controls.Add(this.butFullPerebor);
             this.Controls.Add(this.butGeneration);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.butAddCities);
@@ -372,11 +334,8 @@
         private System.Windows.Forms.Button butAddCities;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button butGeneration;
-        private System.Windows.Forms.Button butFullPerebor;
-        private System.Windows.Forms.Button butMurovei;
         private System.Windows.Forms.Button butUslovie;
         private System.Windows.Forms.Button butClear;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cities;
         private System.Windows.Forms.Panel panel1;

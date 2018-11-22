@@ -7,11 +7,6 @@ namespace commis_voyageur
 {
     class Alghoritms
     {
-        //List<int> DynamicMasN = new List<int>();
-        //List<List<int>> DynamicMasNN = new List<List<int>>();
-        //
-
-
         public void Swap(ref List<int> p, int a, int b)
         {
             int c;
@@ -20,15 +15,7 @@ namespace commis_voyageur
             p[b] = c;
         }
 
-        public int factorial(int n)
-        {
-            int result = 1;
-            for (int i = 1; i <= n; i++)
-                result = result * i;
-            return result;
-        }
-
-        public bool NextP(ref List<int> p)
+        public bool GenerateNextPermutation(ref List<int> p)
         {
             bool result;
             int i;
@@ -56,7 +43,8 @@ namespace commis_voyageur
             }
             return result;
         }
-        public int GetKm(ref List<int> X, ref int[,] TR)
+
+        public int CountKilometrsInWay(ref List<int> X, ref int[,] TR)
         {
             int n = X.Count;
             int result = 0;
@@ -66,7 +54,7 @@ namespace commis_voyageur
             return result;
         }
 
-        public List<int> GetMinPut(int[,] TR, ref int min)
+        public List<int> FindMinWayExhaustiveSearch(int[,] TR, ref int min)
         {
             int n;
             int tmp;
@@ -76,10 +64,10 @@ namespace commis_voyageur
             for (int i = 0; i <= n - 1; i++) X[i] = i + 1;
             List<int> Result = new List<int>(n);
             for (int i = Result.Count; i < n; i++) Result.Add(0);
-            min = GetKm(ref X, ref TR);
+            min = CountKilometrsInWay(ref X, ref TR);
             do
             {
-                tmp = GetKm(ref X, ref TR);
+                tmp = CountKilometrsInWay(ref X, ref TR);
                 if (tmp < min)
                 {
                     min = tmp;
@@ -87,25 +75,11 @@ namespace commis_voyageur
                         Result[i] = X[i];
                 }
             }
-            while (NextP(ref X));
+            while (GenerateNextPermutation(ref X));
             return Result;
         }
 
-        public double Stepen(double a, int b)
-        {
-            double Result = 0;
-            if (b == 0)
-                Result = 1;
-            else
-            {
-                Result = 1;
-                for (int i = 1; i <= b; i++)
-                    Result = Result * a;
-            }
-            return Result;
-        }
-
-        public void dropAnts(ref List<int> M, ref int n)
+        public void DropAntsInCities(ref List<int> M, ref int n)
         {
             Random rand = new Random();
             int k = n;
@@ -148,12 +122,12 @@ namespace commis_voyageur
                 double znam = 0;
                 for (j = 1; j <= n; j++)
                     if (!(temp_set.Contains(j)))
-                        znam = znam + ((Stepen(r[i - 1, j - 1], alfa)) * Stepen(NU[i - 1, j - 1], beta));
+                        znam = znam + ((Math.Pow(r[i - 1, j - 1], alfa)) * Math.Pow(NU[i - 1, j - 1], beta));
                 if (znam == 0)
                     znam = 1;
                 for (j = 1; j <= n; j++)
                 {
-                    if (!(temp_set.Contains(j))) temp[j] = ((Stepen(r[i - 1, j - 1], alfa)) * (Stepen(NU[i - 1, j - 1], beta))) / znam;
+                    if (!(temp_set.Contains(j))) temp[j] = ((Math.Pow(r[i - 1, j - 1], alfa)) * (Math.Pow(NU[i - 1, j - 1], beta))) / znam;
                     else temp[j] = 0;
                     temp[j] = temp[j] * 1000000;
                 }
@@ -183,7 +157,7 @@ namespace commis_voyageur
 
 
 
-        public List<int> GetMinPutMuravii(ref int[,] D, ref int min, int alfa, int beta, int tmax, double p_isp,double startph)
+        public List<int> FindWayAntAlgorithm(ref int[,] D, ref int min, int alfa, int beta, double p_isp,double startph)
         {
             Random rand = new Random();
             int  n, k, i, j, t, p;
@@ -192,11 +166,12 @@ namespace commis_voyageur
             List<int> L = new List<int>();
             List<int> Result = new List<int>();
             double qq;
+            int tmax = 100; 
             n = D.GetLength(1);
             for (i = X.Count; i < n; i++) X.Add(0);
             for (i = 0; i <= n - 1; i++) X[i] = i + 1;
             for (i = Result.Count; i < n; i++) Result.Add(0);
-            for (i = 0; i < n; i++) min = GetKm(ref X, ref D);
+            for (i = 0; i < n; i++) min = CountKilometrsInWay(ref X, ref D);
             for (p = 0; p < n; p++) Result[p] = X[p];
             double[,] NU = new double[n, n];
 
@@ -211,12 +186,12 @@ namespace commis_voyageur
                     r[i, j] = startph;
             for (t = 1; t < tmax + 1; t++)
             {
-                dropAnts(ref M, ref n);
+                DropAntsInCities(ref M, ref n);
                 for (k = 1; k <= n; k++)
                 {
                     X[0] = M[k];
                     GetPut4OneAnt(ref X, r, NU, alfa, beta);
-                    L[k] = GetKm(ref X, ref D);
+                    L[k] = CountKilometrsInWay(ref X, ref D);
                     if (L[k] < min)
                     {
                         min = L[k];
